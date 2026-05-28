@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>P2 - Consultorio GALENO</title>
+    <style>
+        /* Ocupe pantalla completa */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        /* Pantalla acomodada, tipo de letra y su tamaño */
+        body {
+            font-family: "Times New Roman", serif;
+            background: #eef2f3;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Encabezado Centrado y Estilizado */
+        header {
+            background: #179;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 4px solid #146c75;
+        }
+        
+        header h2 { font-size: 28px; }
+
+        header img { height: 120px; }
+
+        /* Contenedor principal */
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Navegación Vertical Izquierda */
+        nav {
+            width: 200px;
+            background: white;
+            padding: 20px 0;
+        }
+
+        nav ul { list-style: none; }
+
+        nav ul li a {  
+            display: block;          
+            color: #333;
+            padding: 12px 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Tamaño del panel de control (direccion y centrado) */
+        section.content {
+            flex: 1;
+            padding: 25px;
+        }
+
+        h3 {
+            color: #179;
+            margin-bottom: 15px;
+        }
+
+        /* Footer con datos del alumno */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2>Consultorio GALENO</h2>
+        <img src="logoo.png" alt="Logo">
+    </header>
+
+    <div class="main-container">
+        <nav>
+            <ul>
+                <li><a href="pacientes.html">🩺 Pacientes</a></li>
+                <li><a href="personal.html">👨‍⚕️ Personal</a></li>
+                <li><a href="expedientes.html">📁 Expedientes</a></li>
+                <li><a href="historial.html">📜 Historial</a></li>
+            </ul>
+        </nav>
+
+        <section class="content">
+            <h3>Panel de Control Principal</h3>
+            <p>Bienvenido a nuestra clínica, cualquier duda estamos a tus órdenes.</p>
+            <br>
+            <p><b>"Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."</b></p> 
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-info">
+            <div><b>Alumno:</b> Hernández Mijares Edwin Gael</div>
+            <div><b>Control:</b> 24308051280563</div>
+            <div><b>Semestre/Gpo:</b> 4°I</div>
+            <div><b>Especialidad:</b> Programación</div>
+        </div>
+    </footer>
+
+</body>
+</html>

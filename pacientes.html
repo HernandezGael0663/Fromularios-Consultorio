@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+        <title>Formulario Pacientes</title>
+</head>
+<body>
+
+<header>
+    <h1>Alta de Pacientes - Consultorio Gaeleno</h1>
+    <img width="250" align="center" src="logoo.png">
+    <p><b>"Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."</b></p> 
+
+
+<main>
+    <div class="form-container">
+        <form action="altas.html" method="POST">
+            <div class="form-group">
+                <label>ID del Paciente:</label>
+                <input type="number" name="id_paciente" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Fecha De Nacimiento:</label>
+                <input type="date" name="fecha_nacimiento" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Curp:</label>
+                <input type="text" name="curp" placeholder="Ej: HEME081623JDJA0D9" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Género:</label>
+                <input type="text" name="genero" placeholder="Ej: Femenino" required>
+            </div>
+        
+            <div class="form-group">
+                <label>Teléfono:</label>
+                <input type="number" name="telefono" placeholder="Ej: 555 555" required>
+            </div>
+
+            <div class="form-group">
+                <label>Correo Electrónico:</label>
+                <input type="text" name="correo_electronico" placeholder="Ej: gael@gmail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" name="direccion" placeholder="Ej: Calle Azul, #2376" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo De Sangre:</label>
+                <input type="text" name="tipo_de_sangre" placeholder="Ej: A+" required>
+            </div>
+
+
+            <div class="form-group">
+                <label>Contacto De Emergencia:</label>
+                <input type="text" name="contacto_de_emergencia" placeholder="Ej: Claudia (Mamá)-555-555" required>
+            </div>
+
+            <div class="form-group">
+                <label>Seguro Médico</label>
+                <input type="text" name="seguro_medico" placeholder="Ej: N/A-Partícular" required>
+            </div>
+
+            <div class="form-group">
+                <label>Observaciones:</label>
+                <input type="text" name="observaciones" placeholder="Ej: Epileptico-Alergía:Gatos" required>
+            </div>
+
+
+            <button type="submit" class="btn-submit">Dar de alta al Paciente</button>
+        </form>
+    </div>
+
+    <a href="index.html" class="btn-back"> Volver al Inicio</a>
+</main>
+
+<footer>
+    <p>Hernández Mijares Edwin Gael - Programación</p>
+    <p>24308051280563 - 4-I</p>
+</footer>
+
+</body>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Times New Roman', sans-serif;
+        background-color: #1a2a3a; 
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #2d4a6a; 
+        color: #e0f2f1;
+        width: 100%;
+        padding: 30px 0;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        border-bottom: 3px solid #4fc3f7;
+    }
+
+    h1 {
+        color: #ffffff;
+        font-family: 'Times New Roman', sans-serif;
+        margin: 0;
+        font-size: 2.2rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    header p {
+        color: #b0bec5;
+        font-size: 1.1rem;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 40px 20px;
+        flex: 1;
+    }
+
+    .form-container {
+        max-width: 550px;
+        width: 100%;
+        background: #f4f7f9; 
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        border-left: 8px solid #0288d1;
+        border-right: 8px solid #0288d1;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    label {
+        font-family: 'Times New Roman', sans-serif;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: #102a43; 
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    input[type="text"], input[type="number"], input[type="date"] {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #bcd0e3; 
+        border-radius: 10px;
+        font-size: 14px;
+        background-color: #ffffff;
+        color: #243b55;
+        transition: all 0.4s ease;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #0288d1;
+        box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .btn-submit {
+        font-family: 'Times New Roman', sans-serif;
+        background-color: #01579b; 
+        color: #ffffff;
+        border: none;
+        padding: 16px;
+        width: 100%;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+        box-shadow: 0 4px 12px rgba(1, 87, 155, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #0288d1;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 15px rgba(2, 136, 209, 0.5);
+    }
+
+    .btn-back {
+        display: inline-block;
+        text-align: center;
+        margin-top: 30px;
+        color: #81d4fa; 
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
+    }
+
+    footer {
+        width: 100%;
+        background-color: #0d1b2a; 
+        padding: 25px 0;
+        text-align: center;
+        font-size: 14px;
+        color: #90a4ae;
+        border-top: 2px solid #1a2a3a;
+    }
+
+    footer p {
+        margin: 5px 0;
+    }
+</style>
+</html>
