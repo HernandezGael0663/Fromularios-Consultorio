@@ -1,58 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-        <title>Formulario Expedientes</title>
+    <title>Formulario Expedientes</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            background-color: #1a2a3a; 
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            align-items: center; min-height: 100vh;
+        }
+        header {
+            background: #2d4a6a; color: #e0f2f1;
+            width: 100%; padding: 30px 0; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid #4fc3f7;
+        }
+        h1 { color: #ffffff; margin: 0; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { color: #b0bec5; font-size: 1.1rem; }
+        
+        nav {
+            text-align: center; width: 100%; background: #468cce;
+            padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: #000000; text-decoration: none; margin: 0 15px;
+            font-size: 18px; font-family: "Times New Roman", sans-serif; font-weight: bold;
+        }
+
+        main {
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; padding: 40px 20px; flex: 1;
+        }
+        .form-container {
+            max-width: 550px; width: 100%; background: #f4f7f9; 
+            padding: 40px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-left: 8px solid #0288d1; border-right: 8px solid #0288d1;
+            margin-bottom: 40px;
+        }
+        .form-group { margin-bottom: 25px; }
+        label {
+            display: block; margin-bottom: 10px; font-weight: 700;
+            color: #102a43; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%; padding: 14px; border: 2px solid #bcd0e3; 
+            border-radius: 10px; font-size: 14px; background-color: #ffffff;
+            color: #243b55; transition: all 0.4s ease;
+        }
+        input:focus {
+            outline: none; border-color: #0288d1;
+            box-shadow: 0 0 10px rgba(2, 136, 209, 0.2); transform: translateY(-2px);
+        }
+        input[readonly] {
+            background-color: #e2e8f0; color: #64748b; cursor: not-allowed;
+        }
+        .btn-submit {
+            background-color: #01579b; color: #ffffff; border: none;
+            padding: 16px; width: 100%; border-radius: 10px; font-size: 18px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(1, 87, 155, 0.4); transition: all 0.3s ease;
+        }
+        .btn-submit:hover { background-color: #0288d1; letter-spacing: 1px; box-shadow: 0 6px 15px rgba(2, 136, 209, 0.5); }
+        .btn-cancel {
+            background-color: #cfd8dc; color: #37474f; border: none;
+            padding: 12px; width: 100%; border-radius: 10px; font-size: 15px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase; transition: background 0.3s;
+        }
+        .btn-cancel:hover { background-color: #b0bec5; }
+        
+        .table-container {
+            width: 100%; max-width: 95%; background: #f4f7f9;
+            padding: 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow-x: auto; border-top: 6px solid #0288d1; margin-bottom: 20px;
+        }
+        .table-container h2 {
+            color: #102a43; margin-top: 0; font-size: 1.5rem;
+            border-bottom: 2px solid #bcd0e3; padding-bottom: 10px;
+        }
+
+        .search-container {
+            margin: 15px 0 20px 0; width: 100%; max-width: 400px;
+        }
+        .search-container input {
+            border: 2px solid #0288d1 !important;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%230288d1" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+            background-repeat: no-repeat; background-position: 12px center; padding-left: 40px !important;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; font-size: 13px; text-align: left; }
+        th { background-color: #2d4a6a; color: white; padding: 12px; font-weight: bold; text-transform: uppercase; }
+        td { padding: 10px; border-bottom: 1px solid #bcd0e3; color: #243b55; }
+        tr:hover { background-color: #e3edf7; }
+        
+        .action-btn { padding: 6px 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 4px; text-transform: uppercase; }
+        .edit-btn { background-color: #4b91ca; color: #000; }
+        .delete-btn { background-color: #58e4e9; color: white; }
+        
+        .btn-back { display: inline-block; margin-top: 30px; color: #81d4fa; text-decoration: none; font-size: 16px; font-weight: bold; transition: all 0.3s ease; margin-bottom: 20px; }
+        .btn-back:hover { color: #ffffff; border-bottom: 2px solid #ffffff; }
+
+        footer {
+            width: 100%; background-color: #0d1b2a; padding: 25px 0;
+            text-align: center; font-size: 14px; color: #90a4ae; border-top: 2px solid #1a2a3a;
+        }
+        footer p { margin: 5px 0; }
+    </style>
 </head>
 <body>
 
 <header>
     <h1>Expedientes - Consultorio Gaeleno</h1>
-    <img width="250" align="center" src="logoo.png">
+    <img width="250" align="center" src="logoo.png" alt="Logo Principal">
     <p><b>"Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."</b></p> 
+</header>
+
+<nav>
+    <a href="index.html">Index</a>
+    <a href="pacientes.html">🩺 Pacientes</a>
+    <a href="personal.html">👥 Personal</a>
+    <a href="expedientes.html">📁 Expedientes</a>
+    <a href="historial.html">📜 Historial</a>
+</nav>
 
 <main>
     <div class="form-container">
-        <form action="altas.html" method="POST">
-            <div class="form-group">
-                <label>ID Consulta:</label>
-                <input type="number" name="id_consulta" required>
-            </div>
+        <h3 id="form-action-title">Registrar Nuevo Expediente</h3>
+        
+        <form id="formExpediente">
+            <input type="hidden" id="edit_index" value="">
 
             <div class="form-group">
-                <label>ID Paciente:</label>
-                <input type="number" name="id_paciente" required>
+                <label>ID Consulta:</label>
+                <input type="text" id="id_consulta" name="id_consulta" value="Automático" readonly>
             </div>
 
             <div class="form-group">
                 <label>Tipo De Sangre:</label>
-                <input type="text" name="tipo_de_sangre" placeholder="Ej: A+" required>
+                <input type="text" id="tipo_de_sangre" name="tipo_de_sangre" placeholder="Ej: A+" required>
             </div>
-
             
             <div class="form-group">
                 <label>Peso KG:</label>
-                <input type="number" name="peso" placeholder="Ej: 80" required>
+                <input type="number" id="peso" name="peso" placeholder="Ej: 80" required>
             </div>
             
             <div class="form-group">
                 <label>Presión:</label>
-                <input type="number" name="presion"placeholder="Ej: 120/60"  required>
+                <input type="text" id="presion" name="presion" placeholder="Ej: 120/80" required>
             </div>
             
             <div class="form-group">
-                <label>Diágnostico:</label>
-                <input type="text" name="diagnostico" placeholder="Ej:Insomnio" required>
+                <label>Diagnóstico:</label>
+                <input type="text" id="diagnostico" name="diagnostico" placeholder="Ej: Insomnio" required>
             </div>
         
             <div class="form-group">
                 <label>Receta:</label>
-                <input type="text" name="receta" placeholder="Ej: Omeprazol 20 mg" required>
+                <input type="text" id="receta" name="receta" placeholder="Ej: Omeprazol 20 mg" required>
             </div>
 
-           <button type="submit" class="btn-submit">Expediente Terminado</button>
+            <button type="submit" id="btn-submit-text" class="btn-submit">Expediente Terminado</button>
+            <button type="button" id="btn-cancel-edit" class="btn-cancel" style="display:none; margin-top:10px;" onclick="cancelarEdicion()">Cancelar Edición</button>
         </form>
     </div>
 
-    <a href="index.html" class="btn-back"> Volver al Inicio</a>
+    <div class="table-container">
+        <h2>Registros de Expedientes Clínicos (Visualización CRUD)</h2>
+        
+        <div class="search-container">
+            <input type="text" id="buscadorExpedientes" onkeyup="buscarExpedientes()" placeholder="Buscar por ID Consulta o Diagnóstico...">
+        </div>
+
+        <table id="tablaExpedientes">
+            <thead>
+                <tr>
+                    <th>ID Consulta</th>
+                    <th>Tipo Sangre</th>
+                    <th>Peso (KG)</th>
+                    <th>Presión</th>
+                    <th>Diagnóstico</th>
+                    <th>Receta</th>
+                    <th>Acciones</th> 
+                </tr>
+            </thead>
+            <tbody id="cuerpoTablaExpedientes"></tbody>
+        </table>
+    </div>
+
+    <a href="index.html" class="btn-back">Volver al Inicio</a>
 </main>
 
 <footer>
@@ -60,150 +198,158 @@
     <p>24308051280563 - 4-I</p>
 </footer>
 
+<script>
+    let expedientesLocal = [];
+
+    window.onload = function() {
+        cargarExpedientes();
+    };
+
+    document.getElementById('formExpediente').addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+        await guardarExpediente();
+    });
+
+    async function cargarExpedientes() {
+        try {
+            const respuesta = await fetch('http://localhost:5000/api/expedientes');
+            if (respuesta.ok) {
+                expedientesLocal = await respuesta.json();
+                dibujarTabla(expedientesLocal);
+            }
+        } catch (error) {
+            console.error("Error al cargar los expedientes:", error);
+        }
+    }
+
+    function dibujarTabla(lista) {
+        const cuerpoTabla = document.getElementById("cuerpoTablaExpedientes");
+        cuerpoTabla.innerHTML = ""; 
+
+        lista.forEach(e => {
+            const nuevaFila = document.createElement("tr");
+            nuevaFila.innerHTML = `
+                <td>${e.id_consulta}</td>
+                <td>${e.tipo_de_sangre}</td>
+                <td>${e.peso} kg</td>
+                <td>${e.presion}</td>
+                <td>${e.diagnostico}</td>
+                <td>${e.receta}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="prepararEdicion('${e.id_consulta}')">Editar</button>
+                    <button class="action-btn delete-btn" onclick="eliminarExpediente('${e.id_consulta}')">Eliminar</button>
+                </td>
+            `;
+            cuerpoTabla.appendChild(nuevaFila);
+        });
+    }
+
+    function buscarExpedientes() {
+        const textoBusqueda = document.getElementById("buscadorExpedientes").value.toLowerCase();
+        
+        const expedientesFiltrados = expedientesLocal.filter(e => {
+            return e.id_consulta.toString().includes(textoBusqueda) || 
+                   e.diagnostico.toLowerCase().includes(textoBusqueda);
+        });
+
+        dibujarTabla(expedientesFiltrados);
+    }
+
+    async function guardarExpediente(){
+        let id_consulta = document.getElementById("id_consulta").value;
+        const tipo_de_sangre = document.getElementById("tipo_de_sangre").value;
+        const peso = document.getElementById("peso").value;
+        const presion = document.getElementById("presion").value;
+        const diagnostico = document.getElementById("diagnostico").value;
+        const receta = document.getElementById("receta").value;
+        const editIndex = document.getElementById("edit_index").value;
+
+        if (editIndex === "") {
+            let maxId = 0;
+            expedientesLocal.forEach(e => {
+                if (parseInt(e.id_consulta) > maxId) {
+                    maxId = parseInt(e.id_consulta);
+                }
+            });
+            id_consulta = maxId + 1;
+        } else {
+            id_consulta = parseInt(editIndex);
+        }
+
+        const datosExpediente = {
+            id_consulta: id_consulta,tipo_de_sangre, peso: parseFloat(peso), presion, diagnostico, receta
+        };
+
+        try {
+            const url = editIndex === "" ? 'http://localhost:5000/api/expedientes' : `http://localhost:5000/api/expedientes/${id_consulta}`;
+            const metodo = editIndex === "" ? 'POST' : 'PUT';
+
+            const respuesta = await fetch(url, {
+                method: metodo,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosExpediente)
+            });
+
+            if (respuesta.ok) {
+                alert("Expediente guardado con éxito.");
+                document.getElementById("buscadorExpedientes").value = "";
+                cancelarEdicion();
+                await cargarExpedientes(); 
+            } else {
+                const resultado = await respuesta.json();
+                alert("Error: " + (resultado.error || "No se pudo almacenar el registro."));
+            }
+        } catch (error) {
+            console.error("Error al conectar con el servidor:", error);
+            alert("Error en el envío de datos al servidor.");
+        }
+    }
+
+    function prepararEdicion(id) {
+        const e = expedientesLocal.find(exp => exp.id_consulta == id);
+        if (!e) return;
+
+        document.getElementById("id_consulta").value = e.id_consulta;
+        document.getElementById("tipo_de_sangre").value = e.tipo_de_sangre;
+        document.getElementById("peso").value = e.peso;
+        document.getElementById("presion").value = e.presion;
+        document.getElementById("diagnostico").value = e.diagnostico;
+        document.getElementById("receta").value = e.receta;
+
+        document.getElementById("edit_index").value = id;
+        document.getElementById("form-action-title").innerText = "Editando Expediente de Consulta (ID: " + id + ")";
+        document.getElementById("btn-submit-text").innerText = "Guardar Cambios Actualizados";
+        document.getElementById("btn-cancel-edit").style.display = "block";
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function cancelarEdicion() {
+        document.getElementById('formExpediente').reset();
+        document.getElementById("id_consulta").value = "Automático";
+        document.getElementById("edit_index").value = "";
+        document.getElementById("form-action-title").innerText = "Registrar Nuevo Expediente";
+        document.getElementById("btn-submit-text").innerText = "Expediente Terminado";
+        document.getElementById("btn-cancel-edit").style.display = "none";
+    }
+
+    async function eliminarExpediente(id) {
+        if (confirm("¿Estás seguro de eliminar este expediente clínico permanentemente?")) {
+            try {
+                const respuesta = await fetch(`http://localhost:5000/api/expedientes/${id}`, { method: 'DELETE' });
+                if (respuesta.ok) {
+                    alert("Expediente eliminado con éxito.");
+                    document.getElementById("buscadorExpedientes").value = "";
+                    await cargarExpedientes(); 
+                } else {
+                    alert("No se pudo eliminar el expediente del servidor.");
+                }
+            } catch (error) {
+                console.error("Error al borrar expediente:", error);
+                alert("Error al comunicarse con el servidor.");
+            }
+        }
+    }
+</script>
 </body>
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Times New Roman', sans-serif;
-        background-color: #1a2a3a; 
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-    }
-
-    header {
-        background: #2d4a6a; 
-        color: #e0f2f1;
-        width: 100%;
-        padding: 30px 0;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        border-bottom: 3px solid #4fc3f7;
-    }
-
-    h1 {
-        color: #ffffff;
-        font-family: 'Times New Roman', sans-serif;
-        margin: 0;
-        font-size: 2.2rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    header p {
-        color: #b0bec5;
-        font-size: 1.1rem;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 40px 20px;
-        flex: 1;
-    }
-
-    .form-container {
-        max-width: 550px;
-        width: 100%;
-        background: #f4f7f9; 
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        border-left: 8px solid #0288d1;
-        border-right: 8px solid #0288d1;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-    
-    label {
-        font-family: 'Times New Roman', sans-serif;
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 700;
-        color: #102a43; 
-        font-size: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    input[type="text"], input[type="number"], input[type="date"] {
-        width: 100%;
-        padding: 14px;
-        border: 2px solid #bcd0e3; 
-        border-radius: 10px;
-        font-size: 14px;
-        background-color: #ffffff;
-        color: #243b55;
-        transition: all 0.4s ease;
-    }
-
-    input:focus {
-        outline: none;
-        border-color: #0288d1;
-        box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
-        transform: translateY(-2px);
-    }
-
-    .btn-submit {
-        font-family: 'Times New Roman', sans-serif;
-        background-color: #01579b; 
-        color: #ffffff;
-        border: none;
-        padding: 16px;
-        width: 100%;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        box-shadow: 0 4px 12px rgba(1, 87, 155, 0.4);
-        transition: all 0.3s ease;
-    }
-
-    .btn-submit:hover {
-        background-color: #0288d1;
-        letter-spacing: 1px;
-        box-shadow: 0 6px 15px rgba(2, 136, 209, 0.5);
-    }
-
-    .btn-back {
-        display: inline-block;
-        text-align: center;
-        margin-top: 30px;
-        color: #81d4fa; 
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-        border-bottom: 2px solid transparent;
-        transition: all 0.3s ease;
-    }
-
-    .btn-back:hover {
-        color: #ffffff;
-        border-bottom: 2px solid #ffffff;
-    }
-
-    footer {
-        width: 100%;
-        background-color: #0d1b2a; 
-        padding: 25px 0;
-        text-align: center;
-        font-size: 14px;
-        color: #90a4ae;
-        border-top: 2px solid #1a2a3a;
-    }
-
-    footer p {
-        margin: 5px 0;
-    }
-</style>
 </html>

@@ -2,220 +2,379 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-        <title>Formulario Historial</title>
+    <title>Formulario Historial</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            background-color: #1a2a3a; 
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            align-items: center; min-height: 100vh;
+        }
+        header {
+            background: #2d4a6a; color: #e0f2f1;
+            width: 100%; padding: 30px 0; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 3px solid #4fc3f7;
+        }
+        h1 { color: #ffffff; margin: 0; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { color: #b0bec5; font-size: 1.1rem; }
+        
+        nav  {
+            text-align :center;
+            width: 100%;
+            background: #468cce;
+            padding : 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1)
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            font-family: "Times New Roman", sans-serif;
+            font-weight: bold;
+        }
+
+        main {
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; padding: 40px 20px; flex: 1;
+        }
+        .form-container {
+            max-width: 550px; width: 100%; background: #f4f7f9; 
+            padding: 40px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border-left: 8px solid #0288d1; border-right: 8px solid #0288d1;
+            margin-bottom: 40px;
+        }
+        .form-group { margin-bottom: 25px; }
+        label {
+            display: block; margin-bottom: 10px; font-weight: 700;
+            color: #102a43; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        input[type="text"], input[type="number"], input[type="date"] {
+            width: 100%; padding: 14px; border: 2px solid #bcd0e3; 
+            border-radius: 10px; font-size: 14px; background-color: #ffffff;
+            color: #243b55; transition: all 0.4s ease;
+        }
+        input:focus {
+            outline: none; border-color: #0288d1;
+            box-shadow: 0 0 10px rgba(2, 136, 209, 0.2); transform: translateY(-2px);
+        }
+        /* Estilo sutil para campos deshabilitados o de solo lectura */
+        input[readonly] {
+            background-color: #e2e8f0;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+        .btn-submit {
+            background-color: #01579b; color: #ffffff; border: none;
+            padding: 16px; width: 100%; border-radius: 10px; font-size: 18px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(1, 87, 155, 0.4); transition: all 0.3s ease;
+        }
+        .btn-submit:hover { background-color: #0288d1; letter-spacing: 1px; box-shadow: 0 6px 15px rgba(2, 136, 209, 0.5); }
+        .btn-cancel {
+            background-color: #cfd8dc; color: #37474f; border: none;
+            padding: 12px; width: 100%; border-radius: 10px; font-size: 15px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase; transition: background 0.3s;
+        }
+        .btn-cancel:hover { background-color: #b0bec5; }
+        
+        .table-container {
+            width: 100%; max-width: 95%; background: #f4f7f9;
+            padding: 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow-x: auto; border-top: 6px solid #0288d1; margin-bottom: 20px;
+        }
+        .table-container h2 {
+            color: #102a43; margin-top: 0; font-size: 1.5rem;
+            border-bottom: 2px solid #bcd0e3; padding-bottom: 10px;
+        }
+
+        .search-container {
+            margin: 15px 0 20px 0; width: 100%; max-width: 400px;
+        }
+        .search-container input {
+            border: 2px solid #0288d1 !important;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%230288d1" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+            background-repeat: no-repeat; background-position: 12px center; padding-left: 40px !important;
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; font-size: 13px; text-align: left; }
+        th { background-color: #2d4a6a; color: white; padding: 12px; font-weight: bold; text-transform: uppercase; }
+        td { padding: 10px; border-bottom: 1px solid #bcd0e3; color: #243b55; }
+        tr:hover { background-color: #e3edf7; }
+        
+        .action-btn { padding: 6px 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 11px; margin-right: 4px; text-transform: uppercase; }
+        .edit-btn { background-color: #4b91ca; color: #000; }
+        .delete-btn { background-color: #58e4e9; color: white; }
+        
+        .btn-back { display: inline-block; margin-top: 30px; color: #81d4fa; text-decoration: none; font-size: 16px; font-weight: bold; transition: all 0.3s ease; margin-bottom: 20px; }
+        .btn-back:hover { color: #ffffff; border-bottom: 2px solid #ffffff; }
+    </style>
 </head>
 <body>
 
 <header>
     <h1>Historial - Consultorio Gaeleno</h1>
-    <img width="250" align="center" src="logoo.png">
+    <img width="250" align="center" src="logoo.png" alt="Logo Principal">
     <p><b>"Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."</b></p> 
+</header>
 
+<nav>
+    <a href="index.html">Index</a>
+    <a href="pacientes.html">🩺 Pacientes</a>
+    <a href="personal.html">👥 Personal</a>
+    <a href="expedientes.html">📁 Expedientes</a>
+    <a href="historial.html">📜 Historial</a>
+</nav>
 
 <main>
     <div class="form-container">
-        <form action="altas.html" method="POST">
+        <h3 id="form-action-title">Registrar Nuevo Historial</h3>
+        
+        <form id="formHistorial">
+            <input type="hidden" id="edit_index" value="">
+
             <div class="form-group">
                 <label>ID Cita:</label>
-                <input type="number" name="id_cita" required>
+                <input type="text" id="id_cita" name="id_cita" value="Automático" readonly>
             </div>
             
             <div class="form-group">
                 <label>Fecha:</label>
-                <input type="date" name="fecha" required>
+                <input type="date" id="fecha" name="fecha" required>
             </div>
             
             <div class="form-group">
                 <label>Hora:</label>
-                <input type="text" name="Hora" placeholder="Ej: 09:00 AM" required>
-            </div>
-            
-            <div class="form-group">
-                <label>ID Paciente:</label>
-                <input type="number" name="id_paciente" required>
+                <input type="text" id="hora" name="hora" placeholder="Ej: 09:00 AM" required>
             </div>
             
             <div class="form-group">
                 <label>Tipo De Estudio:</label>
-                <input type="text" name="tipo_de_estudio" placeholder="Ej:Endoscopia" required>
+                <input type="text" id="tipo_de_estudio" name="tipo_de_estudio" placeholder="Ej: Endoscopia" required>
             </div>
         
             <div class="form-group">
                 <label>Laboratorio:</label>
-                <input type="text" name="laboratorio" placeholder="Ej: Chopo" required>
+                <input type="text" id="laboratorio" name="laboratorio" placeholder="Ej: Chopo" required>
             </div>
 
             <div class="form-group">
                 <label>Resultado:</label>
-                <input type="text" name="resultado" placeholder="Ej: Positivo a :" required>
+                <input type="text" id="resultado" name="resultado" placeholder="Ej: Positivo a :" required>
             </div>
 
             <div class="form-group">
                 <label>Monto:</label>
-                <input type="number" name="monto" placeholder="Ej:$1200" required>
+                <input type="number" id="monto" name="monto" placeholder="Ej: 1200" required>
             </div>
 
             <div class="form-group">
                 <label>Estatus De Pago:</label>
-                <input type="text" name="estatus_de_pago" placeholder="Ej: Pagado/Pendiente" required>
+                <input type="text" id="estatus_de_pago" name="estatus_de_pago" placeholder="Ej: Pagado/Pendiente" required>
             </div>
 
-            <button type="submit" class="btn-submit">Historial Guardado</button>
+            <button type="submit" id="btn-submit-text" class="btn-submit">Guardar Historial</button>
+            <button type="button" id="btn-cancel-edit" class="btn-cancel" style="display:none; margin-top:10px;" onclick="cancelarEdicion()">Cancelar Edición</button>
         </form>
     </div>
 
-    <a href="index.html" class="btn-back"> Volver al Inicio</a>
+    <div class="table-container">
+        <h2>Registros de Historial Clínico (Visualización CRUD)</h2>
+        
+        <div class="search-container">
+            <input type="text" id="buscadorHistorial" onkeyup="buscarHistorial()" placeholder="Buscar por ID Cita o Estudio...">
+        </div>
+
+        <table id="tablaHistorial">
+            <thead>
+                <tr>
+                    <th>ID Cita</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Estudio</th>
+                    <th>Laboratorio</th>
+                    <th>Resultado</th>
+                    <th>Monto</th>
+                    <th>Estatus Pago</th>
+                    <th>Acciones</th> 
+                </tr>
+            </thead>
+            <tbody id="cuerpoTablaHistorial"></tbody>
+        </table>
+    </div>
+
+    <a href="index.html" class="btn-back">Volver al Inicio</a>
 </main>
 
-<footer>
-    <p>Hernández Mijares Edwin Gael - Programación</p>
-    <p>24308051280563 - 4-I</p>
-</footer>
+<script>
+    let historialLocal = [];
 
+    window.onload = function() {
+        cargarHistorial();
+    };
+
+    document.getElementById('formHistorial').addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+        await guardarHistorial();
+    });
+
+    async function cargarHistorial() {
+        try {
+            const respuesta = await fetch('http://localhost:5000/api/historial');
+            if (respuesta.ok) {
+                historialLocal = await respuesta.json();
+                dibujarTabla(historialLocal);
+            }
+        } catch (error) {
+            console.error("Error al cargar el historial:", error);
+        }
+    }
+
+    function dibujarTabla(lista) {
+        const cuerpoTabla = document.getElementById("cuerpoTablaHistorial");
+        cuerpoTabla.innerHTML = ""; 
+
+        lista.forEach(h => {
+            const nuevaFila = document.createElement("tr");
+            nuevaFila.innerHTML = `
+                <td>${h.id_cita}</td>
+                <td>${h.fecha}</td>
+                <td>${h.hora}</td>
+                <td>${h.tipo_de_estudio}</td>
+                <td>${h.laboratorio}</td>
+                <td>${h.resultado}</td>
+                <td>$${h.monto}</td>
+                <td>${h.estatus_de_pago}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="prepararEdicion('${h.id_cita}')">Editar</button>
+                    <button class="action-btn delete-btn" onclick="eliminarHistorial('${h.id_cita}')">Eliminar</button>
+                </td>
+            `;
+            cuerpoTabla.appendChild(nuevaFila);
+        });
+    }
+
+    function buscarHistorial() {
+        const textoBusqueda = document.getElementById("buscadorHistorial").value.toLowerCase();
+        
+        const historialFiltrado = historialLocal.filter(h => {
+            return h.id_cita.toString().includes(textoBusqueda) || 
+                   h.tipo_de_estudio.toLowerCase().includes(textoBusqueda);
+        });
+
+        dibujarTabla(historialFiltrado);
+    }
+
+    async function guardarHistorial(){
+        let id_cita = document.getElementById("id_cita").value;
+        const fecha = document.getElementById("fecha").value;
+        const hora = document.getElementById("hora").value;
+        const tipo_de_estudio = document.getElementById("tipo_de_estudio").value;
+        const laboratorio = document.getElementById("laboratorio").value;
+        const resultado = document.getElementById("resultado").value;
+        const monto = document.getElementById("monto").value;
+        const estatus_de_pago = document.getElementById("estatus_de_pago").value;
+        const editIndex = document.getElementById("edit_index").value;
+
+        if (editIndex === "") {
+            let maxId = 0;
+            historialLocal.forEach(h => {
+                if (parseInt(h.id_cita) > maxId) {
+                    maxId = parseInt(h.id_cita);
+                }
+            });
+
+            id_cita = maxId + 1;
+        } else {
+            id_cita = parseInt(editIndex);
+        }
+
+        const datosHistorial = {
+            id_cita: id_cita, fecha, hora, 
+            tipo_de_estudio, laboratorio, resultado, monto: parseFloat(monto), estatus_de_pago
+        };
+
+        try {
+            const url = editIndex === "" ? 'http://localhost:5000/api/historial' : `http://localhost:5000/api/historial/${id_cita}`;
+            const metodo = editIndex === "" ? 'POST' : 'PUT';
+
+            const respuesta = await fetch(url, {
+                method: metodo,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosHistorial)
+            });
+
+            if (respuesta.ok) {
+                alert("Historial guardado con éxito.");
+                document.getElementById("buscadorHistorial").value = "";
+                cancelarEdicion();
+                await cargarHistorial(); 
+            } else {
+                const resultado = await respuesta.json();
+                alert("Error: " + (resultado.error || "No se pudo almacenar el registro."));
+            }
+        } catch (error) {
+            console.error("Error al conectar con el servidor:", error);
+            alert("Error en el envío de datos al servidor.");
+        }
+    }
+
+    function organizarFechaParaInput(fechaStr) {
+        if (!fechaStr) return "";
+        if (fechaStr.includes("T")) return fechaStr.split("T")[0];
+        return fechaStr;
+    }
+
+    function prepararEdicion(id) {
+        const h = historialLocal.find(hist => hist.id_cita == id);
+        if (!h) return;
+
+        document.getElementById("id_cita").value = h.id_cita;
+        document.getElementById("fecha").value = organizarFechaParaInput(h.fecha);
+        document.getElementById("hora").value = h.hora;
+        document.getElementById("tipo_de_estudio").value = h.tipo_de_estudio;
+        document.getElementById("laboratorio").value = h.laboratorio;
+        document.getElementById("resultado").value = h.resultado;
+        document.getElementById("monto").value = h.monto;
+        document.getElementById("estatus_de_pago").value = h.estatus_de_pago;
+
+        document.getElementById("edit_index").value = id;
+        document.getElementById("form-action-title").innerText = "Editando Historial de Cita (ID: " + id + ")";
+        document.getElementById("btn-submit-text").innerText = "Guardar Cambios Actualizados";
+        document.getElementById("btn-cancel-edit").style.display = "block";
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function cancelarEdicion() {
+        document.getElementById('formHistorial').reset();
+        document.getElementById("id_cita").value = "Automático";
+        document.getElementById("edit_index").value = "";
+        document.getElementById("form-action-title").innerText = "Registrar Nuevo Historial";
+        document.getElementById("btn-submit-text").innerText = "Guardar Historial";
+        document.getElementById("btn-cancel-edit").style.display = "none";
+    }
+
+    async function eliminarHistorial(id) {
+        if (confirm("¿Estás seguro de eliminar este registro del historial permanentemente?")) {
+            try {
+                const respuesta = await fetch(`http://localhost:5000/api/historial/${id}`, { method: 'DELETE' });
+                if (respuesta.ok) {
+                    alert("Registro eliminado con éxito.");
+                    document.getElementById("buscadorHistorial").value = "";
+                    await cargarHistorial(); 
+                } else {
+                    alert("No se pudo eliminar el registro del servidor.");
+                }
+            } catch (error) {
+                console.error("Error al borrar historial:", error);
+                alert("Error al comunicarse con el servidor.");
+            }
+        }
+    }
+</script>
 </body>
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Times New Roman', sans-serif;
-        background-color: #1a2a3a; 
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-    }
-
-    header {
-        background: #2d4a6a; 
-        color: #e0f2f1;
-        width: 100%;
-        padding: 30px 0;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        border-bottom: 3px solid #4fc3f7;
-    }
-
-    h1 {
-        color: #ffffff;
-        font-family: 'Times New Roman', sans-serif;
-        margin: 0;
-        font-size: 2.2rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    header p {
-        color: #b0bec5;
-        font-size: 1.1rem;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        padding: 40px 20px;
-        flex: 1;
-    }
-
-    .form-container {
-        max-width: 550px;
-        width: 100%;
-        background: #f4f7f9; 
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        border-left: 8px solid #0288d1;
-        border-right: 8px solid #0288d1;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-    
-    label {
-        font-family: 'Times New Roman', sans-serif;
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 700;
-        color: #102a43; 
-        font-size: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    input[type="text"], input[type="number"], input[type="date"] {
-        width: 100%;
-        padding: 14px;
-        border: 2px solid #bcd0e3; 
-        border-radius: 10px;
-        font-size: 14px;
-        background-color: #ffffff;
-        color: #243b55;
-        transition: all 0.4s ease;
-    }
-
-    input:focus {
-        outline: none;
-        border-color: #0288d1;
-        box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
-        transform: translateY(-2px);
-    }
-
-    .btn-submit {
-        font-family: 'Times New Roman', sans-serif;
-        background-color: #01579b; 
-        color: #ffffff;
-        border: none;
-        padding: 16px;
-        width: 100%;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        box-shadow: 0 4px 12px rgba(1, 87, 155, 0.4);
-        transition: all 0.3s ease;
-    }
-
-    .btn-submit:hover {
-        background-color: #0288d1;
-        letter-spacing: 1px;
-        box-shadow: 0 6px 15px rgba(2, 136, 209, 0.5);
-    }
-
-    .btn-back {
-        display: inline-block;
-        text-align: center;
-        margin-top: 30px;
-        color: #81d4fa; 
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-        border-bottom: 2px solid transparent;
-        transition: all 0.3s ease;
-    }
-
-    .btn-back:hover {
-        color: #ffffff;
-        border-bottom: 2px solid #ffffff;
-    }
-
-    footer {
-        width: 100%;
-        background-color: #0d1b2a; 
-        padding: 25px 0;
-        text-align: center;
-        font-size: 14px;
-        color: #90a4ae;
-        border-top: 2px solid #1a2a3a;
-    }
-
-    footer p {
-        margin: 5px 0;
-    }
-</style>
 </html>

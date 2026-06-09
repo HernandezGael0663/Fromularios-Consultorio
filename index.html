@@ -2,116 +2,167 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P2 - Consultorio GALENO</title>
     <style>
-        /* Ocupe pantalla completa */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        /* Pantalla acomodada, tipo de letra y su tamaño */
         body {
-            font-family: "Times New Roman", serif;
-            background: #eef2f3;
+            font-family: 'Times New Roman', sans-serif;
+            background-color: #f4f7f9;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
         }
-
-        /* Encabezado Centrado y Estilizado */
         header {
-            background: #179;
-            color: white;
-            padding: 15px;
+            background-color: #177593;
+            color: #ffffff;
+            width: 100%;
+            padding: 25px 20px;
             text-align: center;
-            border-bottom: 4px solid #146c75;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        
-        header h2 { font-size: 28px; }
-
-        header img { height: 120px; }
-
-        /* Contenedor principal */
-        .main-container {
-            display: flex;
-            flex: 1;
-        }
-
-        /* Navegación Vertical Izquierda */
-        nav {
-            width: 200px;
-            background: white;
-            padding: 20px 0;
-        }
-
-        nav ul { list-style: none; }
-
-        nav ul li a {  
-            display: block;          
-            color: #333;
-            padding: 12px 25px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        /* Tamaño del panel de control (direccion y centrado) */
-        section.content {
-            flex: 1;
-            padding: 25px;
-        }
-
-        h3 {
-            color: #179;
+        header h1 {
+            font-size: 2.4rem;
+            letter-spacing: 1px;
             margin-bottom: 15px;
+            text-transform: uppercase;
         }
-
-        /* Footer con datos del alumno */
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            font-size: 13px;
+        .header-logo-central {
+            width: 70px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
-
-        .footer-info {
+        .contenedor-principal {
             display: flex;
+            flex: 1;
+            width: 100%;
+        }
+        nav {
+            width: 220px;
+            background-color: #ffffff;
+            border-right: 2px solid #e0e0e0;
+            padding: 30px 15px;
+        }
+        nav ul {
+            list-style: none;
+        }
+        nav ul li {
+            margin-bottom: 20px;
+        }
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #102a43;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background-color: #e3edf7;
+            color: #177593;
+            transform: translateX(5px);
+        }
+        main {
+            flex: 1;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+        main h2 {
+            color: #177593;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        main p {
+            color: #333333;
+            font-size: 15px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        main blockquote {
+            font-style: italic;
+            font-weight: bold;
+            color: #102a43;
+            margin-top: 20px;
+            border-left: 4px solid #177593;
+            padding-left: 15px;
+        }
+        footer {
+            width: 100%;
+            background-color: #102a43;
+            padding: 20px 40px;
+            border-top: 4px solid #177593;
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
+            max-width: 950px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .footer-logo {
+            width: 85px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0px 2px 6px rgba(255, 255, 255, 0.15));
+        }
+        .footer-text {
+            text-align: left;
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .footer-text p {
+            margin: 4px 0;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h2>Consultorio GALENO</h2>
-        <img src="logoo.png" alt="Logo">
+        <h1>Consultorio GALENO</h1>
+        <img class="header-logo-central" src="logoo.png" alt="Logo Principal">
     </header>
 
-    <div class="main-container">
+    <div class="contenedor-principal">
         <nav>
             <ul>
                 <li><a href="pacientes.html">🩺 Pacientes</a></li>
-                <li><a href="personal.html">👨‍⚕️ Personal</a></li>
+                <li><a href="personal.html">👥 Personal</a></li>
                 <li><a href="expedientes.html">📁 Expedientes</a></li>
                 <li><a href="historial.html">📜 Historial</a></li>
             </ul>
         </nav>
 
-        <section class="content">
-            <h3>Panel de Control Principal</h3>
+        <main>
+            <h2>Panel de Control Principal</h2>
             <p>Bienvenido a nuestra clínica, cualquier duda estamos a tus órdenes.</p>
-            <br>
-            <p><b>"Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."</b></p> 
-        </section>
+            <blockquote>
+                "Tu salud es nuestro mayor compromiso y tu bienestar, nuestra mejor recompensa."
+            </blockquote>
+        </main>
     </div>
 
     <footer>
-        <div class="footer-info">
-            <div><b>Alumno:</b> Hernández Mijares Edwin Gael</div>
-            <div><b>Control:</b> 24308051280563</div>
-            <div><b>Semestre/Gpo:</b> 4°I</div>
-            <div><b>Especialidad:</b> Programación</div>
+        <div class="footer-content">
+            <img class="footer-logo" src="logoo.png" alt="Logo Consultorio Galeno">
+            <div class="footer-text">
+                <p><b>Negocio:</b> Consultorio Galeno</p>
+                <p><b>Autor:</b> Hernández Mijares Edwin Gael - Programación</p>
+                <p><b>No. Control y Grupo:</b> 24308051280563 - 4-I</p>
+                <p><b>Submódulo:</b> Implementa Bases de Datos No Relacionales En Un Sistema</p>
+            </div>
         </div>
     </footer>
 
